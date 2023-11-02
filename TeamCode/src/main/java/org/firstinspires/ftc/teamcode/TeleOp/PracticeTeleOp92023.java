@@ -27,12 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -64,8 +64,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="Basic: Omni Linear OpMode", group="Linear OpMode")
-@Disabled
-public class BasicOmniOpMode_Linear extends LinearOpMode {
+//@Disabled
+public class PracticeTeleOp92023 extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -74,15 +74,46 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
 
+    // arm motors
+    private DcMotor left_Arm_Base_Segment, right_Arm_Base_Segment = null;
+    //naming depends on actual structure, i try to have names that describe the intended function
+
+    private Servo left_intake_servo, right_intake_servo = null;
+    ///depends on structure
+
+    private DcMotor left_Odo = null;
+    private DcMotor right_Odo = null;
+    private DcMotor back_Odo = null;
+
+
     @Override
     public void runOpMode() {
 
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "leftRear");//fix configuration to --"_left_"
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFront");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "rightRear");
+
+//        //odometry
+//        left_Odo = hardwareMap.get(DcMotor.class, "left_odo");
+//        right_Odo = hardwareMap.get(DcMotor.class, "right_odo");
+//        back_Odo = hardwareMap.get(DcMotor.class, "back_odo");
+//        //odometry
+
+        //arm
+//        left_Arm_Base_Segment = hardwareMap.get(DcMotor.class,"left_arm_base");
+//        right_Arm_Base_Segment = hardwareMap.get(DcMotor.class,"right_arm_base");
+//        //arm
+//        
+//        //intake Servos
+//        left_intake_servo = hardwareMap.get(Servo.class, "left_intake_servo");
+//        right_intake_servo =hardwareMap.get(Servo.class, "right_intake_servo");
+//        //intake Servos
+
+
+
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -90,14 +121,21 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         // Most robots need the motors on one side to be reversed to drive forward.
         // The motor reversals shown here are for a "direct drive" robot (the wheels turn the same direction as the motor shaft)
         // If your robot has additional gear reductions or uses a right-angled drive, it's important to ensure
-        // that your motors are turning in the correct direction.  So, start out with the reversals here, BUT
+        // that your motors are turning in the c====orrect direction.  So, start out with the reversals here, BUT
         // when you first test your robot, push the left joystick forward and observe the direction the wheels turn.
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);// might be wrong direction
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+
+//        //odometry set directions
+//        left_Odo.setDirection(DcMotor.Direction.FORWARD);// might be wrong direction
+//        right_Odo.setDirection(DcMotor.Direction.REVERSE);
+//        back_Odo.setDirection(DcMotorSimple.Direction.REVERSE);
+//        //odemetery
+//
 
         // Wait for the game to start (driver presses PLAY)
         telemetry.addData("Status", "Initialized");
@@ -111,16 +149,18 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double max;
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
+            double vertical_movemnt             = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            double horozontial_movement         =  gamepad1.left_stick_x;
+            double clockwise_rotation_pro_anti  =  gamepad1.right_stick_x;
+
+
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial - lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
+            double leftFrontPower  = vertical_movemnt + horozontial_movement + clockwise_rotation_pro_anti;
+            double rightFrontPower = vertical_movemnt - horozontial_movement - clockwise_rotation_pro_anti;
+            double leftBackPower   = vertical_movemnt - horozontial_movement + clockwise_rotation_pro_anti;
+            double rightBackPower  = vertical_movemnt + horozontial_movement - clockwise_rotation_pro_anti;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.

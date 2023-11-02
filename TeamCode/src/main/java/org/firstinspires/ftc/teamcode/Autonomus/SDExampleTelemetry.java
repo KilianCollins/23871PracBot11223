@@ -27,13 +27,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.Autonomus;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -47,8 +48,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Also see the Telemetry javadocs.
  */
 @TeleOp(name = "Concept: Telemetry", group = "Concept")
-@Disabled
-public class ConceptTelemetry extends LinearOpMode  {
+//@Disabled
+public class SDExampleTelemetry extends LinearOpMode  {
     /** Keeps track of the line of the poem which is to be emitted next */
     int poemLine = 0;
 

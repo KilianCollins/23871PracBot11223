@@ -73,10 +73,10 @@ See https://developer.android.com/guide/topics/ui/settings.html
         android:title="@string/titleAdvancedRCSettings"
         android:summary="@string/summaryAdvancedRCSettings"
         android:key="@string/pref_launch_advanced_rc_settings">
-        <intent
-            android:targetPackage="@string/packageName"
-            android:targetClass="com.qualcomm.ftccommon.FtcAdvancedRCSettingsActivity"
-            />
+      <intent
+          android:layout_height="match_parent"
+          android:targetClass="com.qualcomm.ftccommon.FtcAdvancedRCSettingsActivity"
+          android:targetPackage="@string/packageName" />
     </PreferenceScreen>
 
     <PreferenceScreen

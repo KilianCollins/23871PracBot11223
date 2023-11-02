@@ -27,19 +27,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.Autonomus;
+
+import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.xyzOrientation;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-
-import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.xyzOrientation;
 
 /*
  * This OpMode shows how to use the new universal IMU interface. This
@@ -70,7 +71,7 @@ import static com.qualcomm.hardware.rev.RevHubOrientationOnRobot.xyzOrientation;
  * Finally, edit this OpMode to use at least one angle around an axis to orient your Hub.
  */
 @TeleOp(name = "Sensor: IMU Non-Orthogonal", group = "Sensor")
-@Disabled     // Comment this out to add to the OpMode list
+//@Disabled     // Comment this out to add to the OpMode list
 public class SensorIMUNonOrthogonal extends LinearOpMode
 {
     // The IMU sensor object
